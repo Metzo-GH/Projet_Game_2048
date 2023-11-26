@@ -1,6 +1,9 @@
 Class {
 	#name : #BoardElement,
 	#superclass : #Object,
+	#instVars : [
+		'board'
+	],
 	#category : #Game2048
 }
 
@@ -29,4 +32,27 @@ BoardElement class >> openWithModel: aTField [
 		extent: 500 @ 500;
 		resizable: false;
 		show
+]
+
+{ #category : #accessing }
+BoardElement >> board [
+
+	^board 
+]
+
+{ #category : #accessing }
+BoardElement >> board: aTBoard [
+
+	board := aTBoard.
+	self layout:
+		(BlGridLayout horizontal cellSpacing: 5 - (board grid width // 5)).
+	self constraintsDo: [ :aLayoutConstraints |
+		aLayoutConstraints horizontal matchParent.
+		aLayoutConstraints vertical matchParent ].
+	self padding: (BlInsets all: 5).
+	self layout columnCount: board grid width.
+	board grid do: [ :aBox |
+		| boxElement |
+		boxElement := (TBoxElement box: aBox) board: aTBoard.
+		self addChild: boxElement ]
 ]

@@ -39,7 +39,7 @@ Game class >> menuGrid [
 	^ menu
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'as yet unclassified' }
 Game class >> open [
 	"Les éléments à afficher dans la page d'accueil"
 	
@@ -53,13 +53,10 @@ Game class >> open [
 	bar addMenu: gridMenu .
 	space := BlSpace new.
 	
-	space root addChild: bar.
 	space root addChild: title.
+	space root addChild: bar.
 	space extent: 500 @ 500.
 	space show
-	 								
-									
-								
 ]
 
 { #category : #accessing }
