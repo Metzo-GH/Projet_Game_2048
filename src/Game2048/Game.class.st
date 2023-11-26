@@ -29,11 +29,15 @@ Game class >> menuGrid [
 		(ToImage inner: (Smalltalk ui icons iconNamed: #solidMenu)).
 		
 	menu addItem:
-		((ToButtonMenuItem new labelText: '4x4') whenClickedDo: [
+		((ToButtonMenuItem new labelText: '3x3') whenClickedDo: [
 			 BoardElement launch4 ]).
 		
 	menu addItem:
-		((ToButtonMenuItem new labelText: '6x6') whenClickedDo: [
+		((ToButtonMenuItem new labelText: '4x4') whenClickedDo: [
+			 BoardElement launch6 ]).
+	
+	menu addItem:
+		((ToButtonMenuItem new labelText: '5x5') whenClickedDo: [
 			 BoardElement launch6 ]).
 		
 	^ menu

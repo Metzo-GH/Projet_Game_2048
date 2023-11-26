@@ -1,6 +1,6 @@
 Class {
 	#name : #BoardElement,
-	#superclass : #Object,
+	#superclass : #BlElement,
 	#instVars : [
 		'board'
 	],
