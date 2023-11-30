@@ -15,6 +15,24 @@ Game2048 class >> gridSize: size [
 ]
 
 { #category : #accessing }
+Game2048 >> findNextTileUpForRow: initialRow col: col [
+    | row nextTile |
+    row := initialRow.
+    nextTile := nil.
+    
+    [ (row := row - 1) >= 1 ] whileTrue: [
+        | currentTile |
+        currentTile := self tileAtRow: row col: col.
+        currentTile isNotNil ifTrue: [
+            nextTile := currentTile.
+            ^ nextTile
+        ].
+    ].
+    
+    ^ nextTile
+]
+
+{ #category : #accessing }
 Game2048 >> grid [
 
 	^ grid
@@ -46,7 +64,7 @@ Game2048 >> initializeGrid [
 
 	1 to: gridSize by: 1 do: [ :i |
 		1 to: gridSize by: 1 do: [ :j |
-            grid at: i at: j put: (Tile value: 0).
+            grid at: i at: j put: nil. "grid at: i at: j put: (Tile value: 0)."
         ]
     ].
 ]
@@ -54,47 +72,58 @@ Game2048 >> initializeGrid [
 { #category : #accessing }
 Game2048 >> moveUp [
 
-    1 to: gridSize do: [ :col | 
-        | merged |
-        merged := false.
-        (gridSize - 1) to: 2 by: -1 do: [ :row |
-            | currentTile |
-            currentTile := grid at: row at: col.
-            currentTile ifNotNil: [
-                | nextEmptyRow |
-                nextEmptyRow := row.
-                [nextEmptyRow > 1] whileTrue: [
-                    | nextTile |
-                    nextTile := grid at: (nextEmptyRow - 1) at: col.
-                    nextTile ifNil: [
-                        nextEmptyRow := nextEmptyRow - 1.
-                    ] ifNotNil: [
-                        (nextTile value = currentTile value and: [merged not]) ifTrue: [
-                            nextTile doubleValue.
-                            grid at: nextEmptyRow at: col put: nil.
-                            merged := true.
-                        ] ifFalse: [
-                            nextEmptyRow := 0.
-                        ].
+	| moved |
+    moved := false.
+
+    "Iterer à travers chaque colonne"
+    1 to: gridSize do: [ :col |
+        | currentRow nextRow |
+        currentRow := 1.
+
+        "Itérer de haut en bas de la grille dans la colonne actuelle"
+        [currentRow <= gridSize] whileTrue: [
+            | currentTile nextTile |
+            currentTile := self tileAtRow: currentRow col: col.
+            nextRow := currentRow + 1.
+
+            "Itérer pour trouver la prochaine tuile non-nil au-dessus de la tuile actuelle"
+            [nextRow <= gridSize] whileTrue: [
+                nextTile := self tileAtRow: nextRow col: col.
+
+                nextTile isNil ifTrue: [
+                    "Si la tuile suivante est nil, déplacez la tuile actuelle vers le haut"
+                    nextRow := nextRow + 1.
+                    moved := true.
+                    currentTile := nil. "setValue: nil."
+                ] ifFalse: [
+                    "Si la tuile suivante n'est pas nil"
+                    nextTile value = currentTile value ifTrue: [
+                        "Si les deux tuiles ont la même valeur, fusionnez-les"
+                        nextTile setValue: (nextTile value * 2).
+                        currentTile setValue: nil.
+                        moved := true.
+                        nextRow := gridSize + 1.  "Sortir de la boucle"
+                    ] ifFalse: [
+                        "Si les tuiles sont différentes, sortir de la boucle"
+                        nextRow := gridSize + 1.  "Sortir de la boucle"
                     ].
                 ].
-                nextEmptyRow > 0 ifTrue: [
-                    grid at: nextEmptyRow at: col put: currentTile.
-                    grid at: row at: col put: nil.
-                ].
             ].
+            currentRow := currentRow + 1.
         ].
     ].
+
+    ^ moved ifTrue: [grid] ifFalse: [self].
 ]
 
 { #category : #accessing }
 Game2048 >> setTileAtRow: row col: col value: value [
-       
-	(grid at: ((row - 1) * gridSize + col)) setValue: value
+
+    grid at: row at: col put: value
 ]
 
 { #category : #accessing }
 Game2048 >> tileAtRow: row col: col [
-       
-	^ (grid at: ((row - 1) * gridSize + col)) value
+
+    ^ grid at: row at: col
 ]
