@@ -90,6 +90,43 @@ Game2048 >> mergeTilesInColumn: column [
 ]
 
 { #category : #accessing }
+Game2048 >> moveDown [ 
+    "Faire le mouvement vers le bas colonne par colonne"
+
+    gridSize to: 1 by: -1 do: [ :column |
+        self moveTilesDownInColumn: column.
+        self mergeTilesInColumn: column.
+        self moveTilesDownInColumn: column.
+    ].
+
+]
+
+{ #category : #accessing }
+Game2048 >> moveTilesDownInColumn: column [ 
+    "Descendre les tuiles dans une colonne spécifique"
+
+    gridSize to: 1 by: -1 do: [ :row | "Parcourir chaque ligne de la colonne en partant du bas"
+        | currentTile emptyTileRow emptyTileIndex |
+        emptyTileIndex := gridSize.
+        currentTile := grid at: row at: column.
+        currentTile value ifNotNil: [
+            "Chercher la prochaine tuile vide pour déplacer la tuile actuelle"
+            [ emptyTileIndex > row ] whileTrue: [
+                emptyTileRow := self emptyTileAtColumn: column row: emptyTileIndex.
+                emptyTileRow ifNil: [ emptyTileIndex := emptyTileIndex - 1 ].
+                emptyTileRow ifNotNil: [
+                    "Descendre la tuile"
+                    grid at: emptyTileRow at: column put: (Tile value: currentTile value).
+                    grid at: row at: column put: (Tile value: nil).
+                    emptyTileIndex := row.
+                ].
+            ].
+        ].
+    ].
+
+]
+
+{ #category : #accessing }
 Game2048 >> moveTilesUpInColumn: column [
 	"Monter les tuiles de la grille"
     
