@@ -119,8 +119,6 @@ Game2048 >> moveTilesUpInColumn: column [
 Game2048 >> moveUp [
 	"Faire le moveUp colonne par colonne"
 	
-	| flattenedGrid game |
-	
     1 to: gridSize do: [ :column |
         self moveTilesUpInColumn: column.
         self mergeTilesInColumn: column.
