@@ -15,26 +15,20 @@ Game2048 class >> gridSize: size [
 ]
 
 { #category : #accessing }
-Game2048 >> findNextTileUpForRow: initialRow col: col [
-    | row nextTile |
-    row := initialRow.
-    nextTile := nil.
+Game2048 >> emptyTileAtColumn: column row: emptyTileRow [
+
+    | tileAtIndex |
+    tileAtIndex := grid at: emptyTileRow at: column.
+    tileAtIndex value ifNil: [ ^ emptyTileRow ].
     
-    [ (row := row - 1) >= 1 ] whileTrue: [
-        | currentTile |
-        currentTile := self tileAtRow: row col: col.
-        currentTile isNotNil ifTrue: [
-            nextTile := currentTile.
-            ^ nextTile
-        ].
-    ].
-    
-    ^ nextTile
+
+    ^ nil. "Aucune tuile vide trouvée"
+
 ]
 
 { #category : #accessing }
 Game2048 >> grid [
-
+	
 	^ grid
 ]
 
@@ -64,66 +58,72 @@ Game2048 >> initializeGrid [
 
 	1 to: gridSize by: 1 do: [ :i |
 		1 to: gridSize by: 1 do: [ :j |
-            grid at: i at: j put: nil. "grid at: i at: j put: (Tile value: 0)."
+            grid at: i at: j put: (Tile value: nil).
         ]
     ].
 ]
 
 { #category : #accessing }
-Game2048 >> moveUp [
+Game2048 >> mergeTilesInColumn: column [
+	"Fusionner les tuiles"
 
-	| moved |
-    moved := false.
+    | index tilesMerged |
+    index := gridSize.
+    tilesMerged := false.
 
-    "Iterer à travers chaque colonne"
-    1 to: gridSize do: [ :col |
-        | currentRow nextRow |
-        currentRow := 1.
+    [ index > 1 and: [ tilesMerged not ] ] whileTrue: [
+        | currentTile nextTile |
+        currentTile := grid at: index at: column.
+        nextTile := grid at: index - 1 at: column.
 
-        "Itérer de haut en bas de la grille dans la colonne actuelle"
-        [currentRow <= gridSize] whileTrue: [
-            | currentTile nextTile |
-            currentTile := self tileAtRow: currentRow col: col.
-            nextRow := currentRow + 1.
+        currentTile value ifNotNil: [
+            (currentTile value = nextTile value) ifTrue: [
+					nextTile := currentTile value * 2.
+					grid at: index - 1 at: column put: (Tile value: nextTile value).
+					grid at: index at: column put: (Tile value: nil).
+               tilesMerged := true.
+            ]
+        ].
+        index := index - 1.
+    ].
 
-            "Itérer pour trouver la prochaine tuile non-nil au-dessus de la tuile actuelle"
-            [nextRow <= gridSize] whileTrue: [
-                nextTile := self tileAtRow: nextRow col: col.
+]
 
-                nextTile isNil ifTrue: [
-                    "Si la tuile suivante est nil, déplacez la tuile actuelle vers le haut"
-                    nextRow := nextRow + 1.
-                    moved := true.
-                    currentTile := nil. "setValue: nil."
-                ] ifFalse: [
-                    "Si la tuile suivante n'est pas nil"
-                    nextTile value = currentTile value ifTrue: [
-                        "Si les deux tuiles ont la même valeur, fusionnez-les"
-                        nextTile setValue: (nextTile value * 2).
-                        currentTile setValue: nil.
-                        moved := true.
-                        nextRow := gridSize + 1.  "Sortir de la boucle"
-                    ] ifFalse: [
-                        "Si les tuiles sont différentes, sortir de la boucle"
-                        nextRow := gridSize + 1.  "Sortir de la boucle"
-                    ].
-                ].
-            ].
-            currentRow := currentRow + 1.
+{ #category : #accessing }
+Game2048 >> moveTilesUpInColumn: column [
+	"Monter les tuiles de la grille"
+    
+    1 to: gridSize do: [ :row | "Parcourir chaque ligne de la colonne"
+        | currentTile emptyTileRow emptyTileIndex |
+			emptyTileIndex := 1.
+        	currentTile := grid at: row at: column.
+        	currentTile value ifNotNil: [
+			"Chercher la prochaine tuile nul pour remplacer sa valeur"
+			  [ emptyTileIndex < row ] whileTrue: [ 
+            		emptyTileRow := self emptyTileAtColumn: column row: emptyTileIndex.
+					emptyTileRow ifNil: [ emptyTileIndex := emptyTileIndex + 1. ].
+					emptyTileRow isNotNil ifTrue:  [ emptyTileIndex := row ].
+				].
+            		emptyTileRow ifNotNil: [
+						"Remonter la tuile"
+						grid at: emptyTileRow at: column put: (Tile value: currentTile value).
+						grid at: row at: column put: (Tile value: nil).
+            		].
+			  
         ].
     ].
 
-    ^ moved ifTrue: [grid] ifFalse: [self].
 ]
 
 { #category : #accessing }
-Game2048 >> setTileAtRow: row col: col value: value [
-
-    grid at: row at: col put: value
-]
-
-{ #category : #accessing }
-Game2048 >> tileAtRow: row col: col [
-
-    ^ grid at: row at: col
+Game2048 >> moveUp [
+	"Faire le moveUp colonne par colonne"
+	
+	| flattenedGrid game |
+	
+    1 to: gridSize do: [ :column |
+        self moveTilesUpInColumn: column.
+        self mergeTilesInColumn: column.
+        self moveTilesUpInColumn: column.
+    ].
 ]
