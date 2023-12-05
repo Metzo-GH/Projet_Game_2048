@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'gridSize',
-		'grid'
+		'grid',
+		'score'
 	],
 	#category : #'Project_2048_Game'
 }
