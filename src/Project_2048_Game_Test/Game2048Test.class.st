@@ -54,6 +54,100 @@ Game2048Test >> testMoveDown [
 ]
 
 { #category : #tests }
+Game2048Test >> testMoveLeft [
+
+        | game flattenedGrid |
+        
+        "Création d'une instance du jeu 2048 avec la grille de test"
+        game := Game2048 new.
+        game gridSize: 4.
+
+			game grid at: 1 at: 1 put: (Tile value: 2).
+			game grid at: 1 at: 2 put: (Tile value: nil).
+			game grid at: 1 at: 3 put: (Tile value: 2).
+			game grid at: 1 at: 4 put: (Tile value: nil).
+			game grid at: 2 at: 1 put: (Tile value: 4).
+			game grid at: 2 at: 2 put: (Tile value: 2).
+			game grid at: 2 at: 3 put: (Tile value: nil).
+			game grid at: 2 at: 4 put: (Tile value: 2).
+			game grid at: 3 at: 1 put: (Tile value: nil).
+			game grid at: 3 at: 2 put: (Tile value: 4).
+			game grid at: 3 at: 3 put: (Tile value: 2).
+			game grid at: 3 at: 4 put: (Tile value: 4).
+			game grid at: 4 at: 1 put: (Tile value: 2).
+			game grid at: 4 at: 2 put: (Tile value: nil).
+			game grid at: 4 at: 3 put: (Tile value: nil).
+			game grid at: 4 at: 4 put: (Tile value: 2).
+
+        "Effectuer un moveUp"
+       	game moveLeft.
+		  	
+
+        "Vérification du résultat attendu après le déplacement"
+			flattenedGrid := OrderedCollection new.
+			1 to: 4 do: [ :i |
+    				1 to: 4 do: [ :j |
+        | tileValue |
+        	tileValue := (game grid at: i at: j) ifNotNil: [ :tile |
+				 tile value ] ifNil: [ nil ].
+        flattenedGrid add: tileValue.
+    			].
+			].
+
+self assert: flattenedGrid asArray equals: #(4	 nil	nil		nil
+														 4		4	nil		nil
+														 4		2		4	nil 
+														 4	nil		nil		nil).
+]
+
+{ #category : #tests }
+Game2048Test >> testMoveRight [
+
+        | game flattenedGrid |
+        
+        "Création d'une instance du jeu 2048 avec la grille de test"
+        game := Game2048 new.
+        game gridSize: 4.
+
+			game grid at: 1 at: 1 put: (Tile value: 2).
+			game grid at: 1 at: 2 put: (Tile value: nil).
+			game grid at: 1 at: 3 put: (Tile value: 2).
+			game grid at: 1 at: 4 put: (Tile value: nil).
+			game grid at: 2 at: 1 put: (Tile value: 4).
+			game grid at: 2 at: 2 put: (Tile value: 2).
+			game grid at: 2 at: 3 put: (Tile value: nil).
+			game grid at: 2 at: 4 put: (Tile value: 2).
+			game grid at: 3 at: 1 put: (Tile value: nil).
+			game grid at: 3 at: 2 put: (Tile value: 4).
+			game grid at: 3 at: 3 put: (Tile value: 2).
+			game grid at: 3 at: 4 put: (Tile value: 4).
+			game grid at: 4 at: 1 put: (Tile value: 2).
+			game grid at: 4 at: 2 put: (Tile value: nil).
+			game grid at: 4 at: 3 put: (Tile value: nil).
+			game grid at: 4 at: 4 put: (Tile value: 2).
+
+        "Effectuer un moveUp"
+       	game moveRight.
+		  	
+
+        "Vérification du résultat attendu après le déplacement"
+			flattenedGrid := OrderedCollection new.
+			1 to: 4 do: [ :i |
+    				1 to: 4 do: [ :j |
+        | tileValue |
+        	tileValue := (game grid at: i at: j) ifNotNil: [ :tile |
+				 tile value ] ifNil: [ nil ].
+        flattenedGrid add: tileValue.
+    			].
+			].
+
+self assert: flattenedGrid asArray equals: #(nil	nil		nil		4
+														 nil	nil		4	4
+														 nil	4	2	4
+														 nil	nil		nil		4).
+]
+
+{ #category : #tests }
 Game2048Test >> testMoveUp [
 
         | game flattenedGrid |
