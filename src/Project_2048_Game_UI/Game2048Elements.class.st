@@ -1,22 +1,23 @@
 Class {
-	#name : #Game2048Element,
-	#superclass : #Object,
+	#name : #Game2048Elements,
+	#superclass : #BlElement,
 	#instVars : [
 		'transitionByName'
 	],
-	#category : #'Project_2048_Game-UI'
+	#category : #'Project_2048_Game_UI'
 }
 
 { #category : #initialization }
-Game2048Element >> initialize [
+Game2048Elements >> initialize [
 
 	super initialize.
 	
-	transitionByName := Dictionary new
+	transitionByName := Dictionary new.
+	
 ]
 
 { #category : #initialization }
-Game2048Element >> newOpacityAnimationFrom: from to: to [
+Game2048Elements >> newOpacityAnimationFrom: from to: to [
 
 	^ BlNumberTransition new
 			from: from;
@@ -26,7 +27,7 @@ Game2048Element >> newOpacityAnimationFrom: from to: to [
 ]
 
 { #category : #initialization }
-Game2048Element >> newTransformationAnimationFrom: startElementTransformation to: endElementTransformation [
+Game2048Elements >> newTransformationAnimationFrom: startElementTransformation to: endElementTransformation [
 
 	| cachedTransformation fromMatrix toMatrix |
 	cachedTransformation :=
@@ -50,7 +51,7 @@ Game2048Element >> newTransformationAnimationFrom: startElementTransformation to
 ]
 
 { #category : #initialization }
-Game2048Element >> opacity: aNumber [
+Game2048Elements >> opacity: aNumber [
 
 	| aTransition anAnimation |
 	aNumber = self opacity ifTrue: [ ^self ].
@@ -76,9 +77,10 @@ Game2048Element >> opacity: aNumber [
 ]
 
 { #category : #initialization }
-Game2048Element >> transformation: anElementTransformation [
+Game2048Elements >> transformation: anElementTransformation [
 
 	| aTransition |
+
 	aTransition := transitionByName
 		at: #transformation
 		ifAbsent: [ ^ super transformation: anElementTransformation ].
@@ -101,22 +103,22 @@ Game2048Element >> transformation: anElementTransformation [
 ]
 
 { #category : #initialization }
-Game2048Element >> transitionAt: aName [
+Game2048Elements >> transitionAt: aName [
 
 	^ transitionByName
 			at: aName
-			ifAbsentPut: [ GCElementTransition new ]
+			ifAbsentPut: [ Game2048ElementTransition new ]
 ]
 
 { #category : #initialization }
-Game2048Element >> transitionAt: aName duration: aDuration [
+Game2048Elements >> transitionAt: aName duration: aDuration [
 
 	(self transitionAt: aName) duration: aDuration
 
 ]
 
 { #category : #initialization }
-Game2048Element >> transitionAt: aName easing: aBlInterpolator [
+Game2048Elements >> transitionAt: aName easing: aBlInterpolator [
 
 	(self transitionAt: aName) easing: aBlInterpolator
 ]
