@@ -40,6 +40,22 @@ Game2048 >> addTileAtRandom [
 ]
 
 { #category : #'Tile Move' }
+Game2048 >> determineScore [
+
+	tilesMerged ifTrue: [
+		1 to: gridSize by: 1 do: [ :row |
+			1 to: gridSize by: 1 do: [ :col |
+				(grid at: row at: col) value ifNotNil: [ 
+					(((grid at: row at: col) value) > score) ifTrue: [ 
+					score := (grid at: row at: col) value 
+				 		] 
+					]
+				] 
+			] 
+		]
+]
+
+{ #category : #'Tile Move' }
 Game2048 >> emptyTileAtColumn: column row: emptyTileRow [
 
     | tileAtIndex |
@@ -81,7 +97,7 @@ Game2048 >> initializeGameWithSize: size [
 	gridSize := size.
 	grid := Array2D rows: gridSize columns: gridSize.
 	
-	score := 0.
+	score := 2.
 
 	self initializeGrid.
 ]
@@ -123,7 +139,6 @@ Game2048 >> mergeTilesInColumn: column [
         index := index - 1.
     ].
 
-	score := score * 2.
 
 ]
 
@@ -151,7 +166,6 @@ Game2048 >> mergeTilesInRow: row [
         index := index - 1.
     ].
 
-	score := score * 2.
 ]
 
 { #category : #'Tile Move' }
@@ -164,7 +178,10 @@ Game2048 >> moveDown [
         self moveTilesDownInColumn: column.
     ].
 
-	self addTileAtRandom .
+	self addTileAtRandom.
+	self determineScore.
+	
+	
 ]
 
 { #category : #'Tile Move' }
@@ -177,7 +194,8 @@ Game2048 >> moveLeft [
         self moveTilesLeftInRow: row.
     ].
 
-	self addTileAtRandom .
+	self addTileAtRandom.
+	self determineScore.
 ]
 
 { #category : #'Tile Move' }
@@ -190,7 +208,9 @@ Game2048 >> moveRight [
         self moveTilesRightInRow: row.
     ].
 
-	self addTileAtRandom .
+	self addTileAtRandom.
+	self determineScore.
+
 ]
 
 { #category : #'Tile Move' }
@@ -305,7 +325,8 @@ Game2048 >> moveUp [
     ].
 
 
-	self addTileAtRandom .
+	self addTileAtRandom.
+	self determineScore.
 ]
 
 { #category : #'Tile Move' }

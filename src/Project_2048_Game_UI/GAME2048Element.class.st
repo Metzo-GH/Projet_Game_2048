@@ -152,6 +152,12 @@ GAME2048Element >> refreshAfterMovedTile [
 ]
 
 { #category : #'as yet unclassified' }
+GAME2048Element >> refreshScoreInTitle [
+	
+	self space ifNotNil: [ :s | s title: ('Score: ', game score asString) ]
+]
+
+{ #category : #'as yet unclassified' }
 GAME2048Element >> registerKeyBindings [
 
 	| selectorByKey |
@@ -187,6 +193,7 @@ GAME2048Element >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 	
 	self refreshAfterMovedTile.
 	
+	self refreshScoreInTitle.
 	
 ]
 
