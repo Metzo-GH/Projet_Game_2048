@@ -148,7 +148,7 @@ self assert: flattenedGrid asArray equals: #(nil	nil		nil		4
 ]
 
 { #category : #tests }
-Game2048Test >> testMoveUp [
+Game2048Test >> testMoveUp [ 
 
         | game flattenedGrid |
         

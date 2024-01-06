@@ -4,15 +4,16 @@ Class {
 	#instVars : [
 		'gridSize',
 		'grid',
-		'score'
+		'score',
+		'tilesMerged'
 	],
 	#category : #'Project_2048_Game'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'not defined category' }
 Game2048 class >> gridSize: size [
 
-	^ self new gridSize: size
+	self new gridSize: size
 ]
 
 { #category : #'Tile Move' }
@@ -40,9 +41,15 @@ Game2048 >> grid: aGrid [
 ]
 
 { #category : #'initialize the grid' }
+Game2048 >> gridSize [
+
+	^ gridSize
+]
+
+{ #category : #'initialize the grid' }
 Game2048 >> gridSize: size [
         
-	^ self initializeGameWithSize: size
+	self initializeGameWithSize: size
 ]
 
 { #category : #'initialize the grid' }
@@ -50,6 +57,8 @@ Game2048 >> initializeGameWithSize: size [
        
 	gridSize := size.
 	grid := Array2D rows: gridSize columns: gridSize.
+	
+	score := 0.
 
 	self initializeGrid.
 ]
@@ -57,9 +66,17 @@ Game2048 >> initializeGameWithSize: size [
 { #category : #'initialize the grid' }
 Game2048 >> initializeGrid [
 
+	| randomRow randomCol |
+	
+	randomRow := (1 to: gridSize) atRandom.
+	randomCol := (1 to: gridSize) atRandom.
+	
+	grid at: randomRow at: randomCol put: (Tile value: 2).
+
 	1 to: gridSize by: 1 do: [ :i |
 		1 to: gridSize by: 1 do: [ :j |
-            grid at: i at: j put: (Tile value: nil).
+				(grid at: i at: j) ifNil: 
+					[grid at: i at: j put: nil] 
         ]
     ].
 ]
@@ -68,7 +85,7 @@ Game2048 >> initializeGrid [
 Game2048 >> mergeTilesInColumn: column [
 	"Fusionner les tuiles"
 
-    | index tilesMerged |
+    | index |
     index := gridSize.
     tilesMerged := false.
 
@@ -94,7 +111,7 @@ Game2048 >> mergeTilesInColumn: column [
 Game2048 >> mergeTilesInRow: row [ 
     "Fusionner les tuiles dans une ligne spécifique vers la droite"
 
-    | index tilesMerged |
+    | index |
     index := gridSize.
     tilesMerged := false.
 
@@ -261,4 +278,10 @@ Game2048 >> moveUp [
         self mergeTilesInColumn: column.
         self moveTilesUpInColumn: column.
     ].
+]
+
+{ #category : #'Tile Move' }
+Game2048 >> score [
+
+	^ score 
 ]
