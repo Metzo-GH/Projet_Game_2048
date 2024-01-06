@@ -41,16 +41,17 @@ GAME2048Element class >> openGrid [
 { #category : #'as yet unclassified' }
 GAME2048Element >> addTileValueFor: row and: col [
 
-	| tileElement position |
+	| tileElement  |
 	tileElement := GAME2048LabelElement new
-	text: (game grid at: row at: col) value asRopedText.
+	text: (game grid at: row at: col) value asRopedText;
+	yourself.
 		
 	tilesContainer addChild: tileElement.
 	
-	position := (self tilePositionFor: col and: row).
-	
 	tileElement transformDo: [ :t |
-		t translateBy: (position)
+		t translateBy: ((slotElementMatrix
+		at: col
+		at: row ) position)
 		 ].
 
 	elementByTile
@@ -177,15 +178,6 @@ GAME2048Element >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 GAME2048Element >> slotsContainer [
 
 	^ slotsContainer
-]
-
-{ #category : #'as yet unclassified' }
-GAME2048Element >> tilePositionFor: col and: row [
-	"Answer the local pixel position that corresponds to the tile position, which is a board position. Use the corresponding slot as a reference."
-
-	^ (slotElementMatrix
-		at: (col@row) x
-		at: (col@row) y) position
 ]
 
 { #category : #'as yet unclassified' }
