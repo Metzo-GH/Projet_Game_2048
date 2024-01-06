@@ -11,7 +11,7 @@ Utilisez les touches fléchées pour déplacer les tuiles dans les directions so
 Les tuiles ayant la même valeur fusionneront en une seule tuile avec une valeur doublée.
 
 # Installation
-### Installer les dépendances
+### Installation des dépendances
 Lancer le script suivant pour installer Bloc :
 ```smalltalk
 [ Metacello new
@@ -23,7 +23,7 @@ Lancer le script suivant pour installer Bloc :
 		on: MCMergeOrLoadWarning
 		do: [ :warning | warning load ]
 ```
-### Installer le jeux
+### Installation du jeux
 #### Il faudra cloner ce repertoire dans pharo avec les informations suivantes :
 Owner Name: Metzo-GH
 Project Name: Projet_Game_2048
