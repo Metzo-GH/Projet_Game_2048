@@ -141,7 +141,9 @@ GAME2048Element >> newSlotElementForRow: row column: column [
 
 { #category : #'as yet unclassified' }
 GAME2048Element >> refreshAfterMovedTile [
-
+	
+	tilesContainer removeChildren.
+	
 	1 to: game gridSize by: 1 do: [ :row |
 		1 to: game gridSize by: 1 do: [ :col |
 			(game grid at: row at: col) ifNotNil:[ 
@@ -185,6 +187,8 @@ GAME2048Element >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 	game perform: slideSelector.
 	
 	self refreshAfterMovedTile.
+	
+	
 ]
 
 { #category : #'as yet unclassified' }
