@@ -1,5 +1,5 @@
 Class {
-	#name : #GAME2048Element,
+	#name : #GAME2048,
 	#superclass : #Game2048Elements,
 	#instVars : [
 		'game',
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-GAME2048Element class >> on: aGame skin: aSkin [
+GAME2048 class >> on: aGame skin: aSkin [
 
 	^ self basicNew
 		createGrid: aGame skin: aSkin;
@@ -23,7 +23,7 @@ GAME2048Element class >> on: aGame skin: aSkin [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element class >> openGrid [
+GAME2048 class >> openGame [
 
 	| game gameElement space skin |
 	game := Game2048 new.
@@ -39,7 +39,7 @@ GAME2048Element class >> openGrid [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> addTileValueFor: row and: col [
+GAME2048 >> addTileValueFor: row and: col [
 
 	| tileElement  |
 	tileElement := GAME2048LabelElement new
@@ -64,7 +64,7 @@ GAME2048Element >> addTileValueFor: row and: col [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> createGrid: theGame [
+GAME2048 >> createGrid: theGame [
 
 	game := theGame.
 	
@@ -88,7 +88,7 @@ GAME2048Element >> createGrid: theGame [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> createGrid: theGame skin: theSkin [
+GAME2048 >> createGrid: theGame skin: theSkin [
 
 	self
 		initialize;
@@ -97,7 +97,7 @@ GAME2048Element >> createGrid: theGame skin: theSkin [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> initialize [
+GAME2048 >> initialize [
 
 	super initialize.
 
@@ -120,14 +120,14 @@ GAME2048Element >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> initializeWithSkin: aSkin [
+GAME2048 >> initializeWithSkin: aSkin [
 
 	skin := aSkin.
 	skin applyGameSkinOn: self
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> newSlotElementForRow: row column: column [
+GAME2048 >> newSlotElementForRow: row column: column [
 
 	| newSlotElement |
 	newSlotElement := self class new.
@@ -139,7 +139,7 @@ GAME2048Element >> newSlotElementForRow: row column: column [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> refreshAfterMovedTile [
+GAME2048 >> refreshAfterMovedTile [
 	
 	tilesContainer removeChildren.
 	
@@ -152,13 +152,13 @@ GAME2048Element >> refreshAfterMovedTile [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> refreshScoreInTitle [
+GAME2048 >> refreshScoreInTitle [
 	
 	self space ifNotNil: [ :s | s title: ('Score: ', game score asString) ]
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> registerKeyBindings [
+GAME2048 >> registerKeyBindings [
 
 	| selectorByKey |
 	selectorByKey := {
@@ -180,7 +180,7 @@ GAME2048Element >> registerKeyBindings [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
+GAME2048 >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 
 	isSlideEnabled ifFalse: [ ^self ].
 
@@ -202,13 +202,13 @@ GAME2048Element >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> slotsContainer [
+GAME2048 >> slotsContainer [
 
 	^ slotsContainer
 ]
 
 { #category : #'as yet unclassified' }
-GAME2048Element >> tilesContainer [
+GAME2048 >> tilesContainer [
 
 	^ tilesContainer
 ]
