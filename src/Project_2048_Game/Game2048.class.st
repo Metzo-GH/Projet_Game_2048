@@ -178,8 +178,6 @@ Game2048 >> moveDown [
         self moveTilesDownInColumn: column.
     ].
 
-	self addTileAtRandom.
-	self determineScore.
 	
 	
 ]
@@ -194,8 +192,7 @@ Game2048 >> moveLeft [
         self moveTilesLeftInRow: row.
     ].
 
-	self addTileAtRandom.
-	self determineScore.
+
 ]
 
 { #category : #'Tile Move' }
@@ -208,8 +205,6 @@ Game2048 >> moveRight [
         self moveTilesRightInRow: row.
     ].
 
-	self addTileAtRandom.
-	self determineScore.
 
 ]
 
@@ -325,8 +320,7 @@ Game2048 >> moveUp [
     ].
 
 
-	self addTileAtRandom.
-	self determineScore.
+
 ]
 
 { #category : #'Tile Move' }

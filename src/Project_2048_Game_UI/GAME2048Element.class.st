@@ -191,6 +191,10 @@ GAME2048Element >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 	
 	game perform: slideSelector.
 	
+	game addTileAtRandom.
+	
+	game determineScore.
+	
 	self refreshAfterMovedTile.
 	
 	self refreshScoreInTitle.
