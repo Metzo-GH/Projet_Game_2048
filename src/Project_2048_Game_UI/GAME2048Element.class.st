@@ -144,7 +144,7 @@ GAME2048Element >> registerKeyBindings [
 
 	| selectorByKey |
 	selectorByKey := {
-		KeyboardKey up    -> #moveUp.
+		KeyboardKey up    -> #moveUt.
 		KeyboardKey down  -> #moveDown.
 		KeyboardKey left  -> #moveLeft.
 		KeyboardKey right -> #moveRight.

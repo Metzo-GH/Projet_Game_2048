@@ -8,7 +8,7 @@ Class {
 Game2048Skin >> applyGameSkinOn: aGameElement [ 
 
 	aGameElement
-		background: Color paleOrange darker;
+		background: Color lightGray darker;
 		constraintsDo: [ :aLayoutConstraints | 
 			aLayoutConstraints horizontal matchParent.
 			aLayoutConstraints vertical matchParent ].
