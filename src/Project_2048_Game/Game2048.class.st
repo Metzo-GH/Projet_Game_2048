@@ -5,7 +5,9 @@ Class {
 		'gridSize',
 		'grid',
 		'score',
-		'tilesMerged'
+		'tilesMerged',
+		'randomRow',
+		'randomCol'
 	],
 	#category : #'Project_2048_Game'
 }
@@ -14,6 +16,20 @@ Class {
 Game2048 class >> gridSize: size [
 
 	self new gridSize: size
+]
+
+{ #category : #'initialize the grid' }
+Game2048 >> addTileAtRandom [
+
+	randomRow := (1 to: gridSize) atRandom.
+	randomCol := (1 to: gridSize) atRandom.
+	
+	[grid at: randomRow at: randomCol] whileNotNil: [ 
+		randomRow := (1 to: gridSize) atRandom.
+		randomCol := (1 to: gridSize) atRandom.	
+	 ]. 
+	
+	grid at: randomRow at: randomCol put: (Tile value: 2).
 ]
 
 { #category : #'Tile Move' }
@@ -65,14 +81,9 @@ Game2048 >> initializeGameWithSize: size [
 
 { #category : #'initialize the grid' }
 Game2048 >> initializeGrid [
-
-	| randomRow randomCol |
 	
-	randomRow := (1 to: gridSize) atRandom.
-	randomCol := (1 to: gridSize) atRandom.
+	self addTileAtRandom.
 	
-	grid at: randomRow at: randomCol put: (Tile value: 2).
-
 	1 to: gridSize by: 1 do: [ :i |
 		1 to: gridSize by: 1 do: [ :j |
 				(grid at: i at: j) ifNil: 
@@ -98,7 +109,7 @@ Game2048 >> mergeTilesInColumn: column [
             (currentTile value = nextTile value) ifTrue: [
 					nextTile := currentTile value * 2.
 					grid at: index - 1 at: column put: (Tile value: nextTile value).
-					grid at: index at: column put: (Tile value: nil).
+					grid at: index at: column put: nil.
                tilesMerged := true.
             ]
         ].
@@ -124,7 +135,7 @@ Game2048 >> mergeTilesInRow: row [
             (currentTile value = nextTile value) ifTrue: [
                 nextTile := currentTile value * 2.
                 grid at: row at: index - 1 put: (Tile value: nextTile value).
-                grid at: row at: index put: (Tile value: nil).
+                grid at: row at: index put: nil.
                 tilesMerged := true.
             ]
         ].
@@ -144,6 +155,7 @@ Game2048 >> moveDown [
         self moveTilesDownInColumn: column.
     ].
 
+	self addTileAtRandom .
 ]
 
 { #category : #'Tile Move' }
@@ -156,6 +168,7 @@ Game2048 >> moveLeft [
         self moveTilesLeftInRow: row.
     ].
 
+	self addTileAtRandom .
 ]
 
 { #category : #'Tile Move' }
@@ -168,6 +181,7 @@ Game2048 >> moveRight [
         self moveTilesRightInRow: row.
     ].
 
+	self addTileAtRandom .
 ]
 
 { #category : #'Tile Move' }
@@ -280,6 +294,9 @@ Game2048 >> moveUp [
         self mergeTilesInColumn: column.
         self moveTilesUpInColumn: column.
     ].
+
+
+	self addTileAtRandom .
 ]
 
 { #category : #'Tile Move' }
