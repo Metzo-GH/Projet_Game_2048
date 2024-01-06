@@ -112,12 +112,11 @@ GAME2048Element >> initialize [
 
 	"Key bindings need to be registered on the parent"
 	isSlideEnabled := false.
-	self
-		when: BlElementAddedToParentEvent
-		do: [ :anEvent |
-			isSlideEnabled := true.
-			self
-				registerKeyBindings ]
+	self addEventHandler: (BlEventHandler
+			 on: BlElementAddedToParentEvent
+			 do: [ :anEvent |
+				 isSlideEnabled := true.
+				 self registerKeyBindings ])
 ]
 
 { #category : #'as yet unclassified' }

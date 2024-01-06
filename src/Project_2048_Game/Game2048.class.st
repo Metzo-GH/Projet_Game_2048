@@ -20,16 +20,23 @@ Game2048 class >> gridSize: size [
 
 { #category : #'initialize the grid' }
 Game2048 >> addTileAtRandom [
-
+	
+	| count |
+	
 	randomRow := (1 to: gridSize) atRandom.
 	randomCol := (1 to: gridSize) atRandom.
-	
-	[grid at: randomRow at: randomCol] whileNotNil: [ 
-		randomRow := (1 to: gridSize) atRandom.
-		randomCol := (1 to: gridSize) atRandom.	
-	 ]. 
-	
-	grid at: randomRow at: randomCol put: (Tile value: 2).
+	count := 0.
+
+	[(grid at: randomRow at: randomCol) notNil and: [count < 50]] whileTrue: [
+    	randomRow := (1 to: gridSize) atRandom.
+    	randomCol := (1 to: gridSize) atRandom.
+    	count := count + 1.
+	].
+
+	(grid at: randomRow at: randomCol) ifNil: [
+    	grid at: randomRow at: randomCol put: (Tile value: 2).
+	].
+
 ]
 
 { #category : #'Tile Move' }
@@ -116,6 +123,8 @@ Game2048 >> mergeTilesInColumn: column [
         index := index - 1.
     ].
 
+	score := score * 2.
+
 ]
 
 { #category : #'Tile Move' }
@@ -142,7 +151,7 @@ Game2048 >> mergeTilesInRow: row [
         index := index - 1.
     ].
 
-
+	score := score * 2.
 ]
 
 { #category : #'Tile Move' }
@@ -302,5 +311,5 @@ Game2048 >> moveUp [
 { #category : #'Tile Move' }
 Game2048 >> score [
 
-	^ score 
+	^ score
 ]
