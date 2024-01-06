@@ -140,11 +140,22 @@ GAME2048Element >> newSlotElementForRow: row column: column [
 ]
 
 { #category : #'as yet unclassified' }
+GAME2048Element >> refreshAfterMovedTile [
+
+	1 to: game gridSize by: 1 do: [ :row |
+		1 to: game gridSize by: 1 do: [ :col |
+			(game grid at: row at: col) ifNotNil:[ 
+			self addTileValueFor: row and: col]
+        ]
+    ].
+]
+
+{ #category : #'as yet unclassified' }
 GAME2048Element >> registerKeyBindings [
 
 	| selectorByKey |
 	selectorByKey := {
-		KeyboardKey up    -> #moveUt.
+		KeyboardKey up    -> #moveUp.
 		KeyboardKey down  -> #moveDown.
 		KeyboardKey left  -> #moveLeft.
 		KeyboardKey right -> #moveRight.
@@ -171,7 +182,9 @@ GAME2048Element >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 	[	self space time wait: aDuration.
 		isSlideEnabled := true ] fork.
 	
-	game perform: slideSelector
+	game perform: slideSelector.
+	
+	self refreshAfterMovedTile.
 ]
 
 { #category : #'as yet unclassified' }

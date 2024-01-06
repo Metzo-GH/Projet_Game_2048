@@ -186,7 +186,7 @@ Game2048 >> moveTilesDownInColumn: column [
                 emptyTileRow ifNotNil: [
                     "Descendre la tuile"
                     grid at: emptyTileRow at: column put: (Tile value: currentTile value).
-                    grid at: row at: column put: (Tile value: nil).
+                    grid at: row at: column put:  nil.
                     emptyTileIndex := row.
                 ].
             ].
@@ -208,7 +208,7 @@ Game2048 >> moveTilesLeftInRow: row [
                 (self emptyTileAtColumn: emptyTileColumn row: row) ifNotNil: [
                     "Déplacer la tuile vers la gauche"
                     grid at: row at: emptyTileColumn put: (Tile value: currentTile value).
-                    grid at: row at: column put: (Tile value: nil).
+                    grid at: row at: column put:  nil.
                     emptyTileColumn := column. "Sortir de la boucle"
                 ] ifNil: [
                     emptyTileColumn := emptyTileColumn + 1.
@@ -232,7 +232,7 @@ Game2048 >> moveTilesRightInRow: row [
                 (self emptyTileAtColumn: emptyTileColumn row: row) ifNotNil: [
                     "Déplacer la tuile vers la droite"
                     grid at: row at: emptyTileColumn put: (Tile value: currentTile value).
-                    grid at: row at: column put: (Tile value: nil).
+                    grid at: row at: column put: nil.
                     emptyTileColumn := column. "Sortir de la boucle"
                 ] ifNil: [
                     emptyTileColumn := emptyTileColumn - 1.
@@ -261,10 +261,11 @@ Game2048 >> moveTilesUpInColumn: column [
             		emptyTileRow ifNotNil: [
 						"Remonter la tuile"
 						grid at: emptyTileRow at: column put: (Tile value: currentTile value).
-						grid at: row at: column put: (Tile value: nil).
+						grid at: row at: column put: nil.
             		].
 			  
         ].
+		
     ].
 
 ]
@@ -272,6 +273,7 @@ Game2048 >> moveTilesUpInColumn: column [
 { #category : #'Tile Move' }
 Game2048 >> moveUp [
 	"Faire le moveUp colonne par colonne"
+	
 	
     1 to: gridSize do: [ :column |
         self moveTilesUpInColumn: column.
