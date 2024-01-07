@@ -144,6 +144,30 @@ GAME2048 >> initializeWithSkin: aSkin [
 ]
 
 { #category : #'as yet unclassified' }
+GAME2048 >> isGameLose: theGame [
+
+	| label |
+	
+	theGame ifLose ifFalse: [ ^ self ].
+	label := GAME2048LabelElement new.
+	self addChild: label.
+	skin applyGameFailedMessageSkinOn: label.
+	self unregisterEventHandlers
+]
+
+{ #category : #'as yet unclassified' }
+GAME2048 >> isGameWin: theGame [
+
+	| label |
+	
+	theGame ifWin ifFalse: [ ^ self ].
+	label := GAME2048LabelElement new.
+	self addChild: label.
+	skin applyGameSuccessMessageSkinOn: label.
+	self unregisterEventHandlers
+]
+
+{ #category : #'as yet unclassified' }
 GAME2048 >> newSlotElementForRow: row column: column [
 
 	| newSlotElement |
@@ -216,6 +240,10 @@ GAME2048 >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 	
 	self refreshScoreInTitle.
 	
+	self isGameLose: game.
+	
+	self isGameWin: game.
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -228,4 +256,11 @@ GAME2048 >> slotsContainer [
 GAME2048 >> tilesContainer [
 
 	^ tilesContainer
+]
+
+{ #category : #'as yet unclassified' }
+GAME2048 >> unregisterEventHandlers [
+
+	self parent
+		removeEventHandler: keyBindingsEventHandler
 ]

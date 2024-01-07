@@ -5,6 +5,36 @@ Class {
 }
 
 { #category : #applying }
+Game2048Skin >> applyGameFailedMessageSkinOn: aLabelElement [ 
+
+	self applyGameFinishedMessageSkinOn: aLabelElement.
+
+	aLabelElement
+		background: Color red translucent;
+		text: 'No good!! Go to train.' asRopedText
+]
+
+{ #category : #applying }
+Game2048Skin >> applyGameFinishedMessageSkinOn: aLabelElement [ 
+
+	aLabelElement label defaultFontSize: 50.
+
+	aLabelElement
+		layout: self newLinearCenteredLayout;
+		constraintsDo: [ :aLayoutConstraints | 
+			aLayoutConstraints horizontal matchParent.
+			aLayoutConstraints vertical matchParent ].
+	
+	aLabelElement
+		opacity: 0.0;
+		addAnimation:
+			(BlOpacityAnimation new
+				duration: 0.2 seconds;
+				opacity: 1.0;
+				yourself)
+]
+
+{ #category : #applying }
 Game2048Skin >> applyGameSkinOn: aGameElement [ 
 
 	aGameElement
@@ -22,6 +52,16 @@ Game2048Skin >> applyGameSkinOn: aGameElement [
 		constraintsDo: [ :aLayoutConstraints | 
 			aLayoutConstraints horizontal matchParent.
 			aLayoutConstraints vertical matchParent ]
+]
+
+{ #category : #applying }
+Game2048Skin >> applyGameSuccessMessageSkinOn: aLabelElement [ 
+
+	self applyGameFinishedMessageSkinOn: aLabelElement.
+
+	aLabelElement
+		background: Color green translucent;
+		text: 'Success' asRopedText
 ]
 
 { #category : #applying }
@@ -62,4 +102,12 @@ Game2048Skin >> applyTileSkinOn: aTileElement setColor: aColor [
 		easing: BlQuinticInterpolator default.
 
 	aTileElement label defaultFontSize: 50.
+]
+
+{ #category : #applying }
+Game2048Skin >> newLinearCenteredLayout [
+
+	^ BlLinearLayout new
+		  alignCenter;
+		  yourself
 ]

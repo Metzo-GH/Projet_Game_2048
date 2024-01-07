@@ -91,6 +91,42 @@ Game2048 >> gridSize: size [
 	self initializeGameWithSize: size
 ]
 
+{ #category : #'Tile Move' }
+Game2048 >> ifLose [
+
+	 "Vérifie si on gagne en comparant l'ancienne grille avec la nouvelle"
+
+    | oldGrid |
+    oldGrid := grid copy.
+
+   self moveUp.
+	self moveDown.
+	self moveLeft.
+	self moveRight.
+	
+	oldGrid = grid ifTrue: [ ^ true ]
+						ifFalse: [ ^ false ]
+
+]
+
+{ #category : #'Tile Move' }
+Game2048 >> ifWin [ 
+    "Vérifie si une tuile avec la valeur 2048 est présente dans grid"
+
+    gridSize to: 1 by: -1 do: [ :r |
+        gridSize to: 1 by: -1 do: [ :c |
+            | currentTile |
+            currentTile := grid at: r at: c.
+            currentTile ifNotNil: [
+                (currentTile value = 2048) ifTrue: [ ^true ].
+            ].
+        ].
+    ].
+
+    ^false.
+
+]
+
 { #category : #'initialize the grid' }
 Game2048 >> initializeGameWithSize: size [
        
