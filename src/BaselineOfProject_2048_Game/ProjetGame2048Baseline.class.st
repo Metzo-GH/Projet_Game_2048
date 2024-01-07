@@ -18,7 +18,7 @@ ProjetGame2048Baseline >> baseline: spec [
 			package: #'Project_2048_Game_Test' with: [
 				spec requires: #( #'Project_2048_Game' ).];
 			package: #'Project_2048_Game_UI' with: [
-				spec requires: #( #'Project_2048_Game' ).].
+				spec requires: #( #'Project_2048_Game' #'Bloc' ).].
 	]
 
 ]
