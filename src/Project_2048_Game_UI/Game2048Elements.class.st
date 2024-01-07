@@ -17,16 +17,6 @@ Game2048Elements >> initialize [
 ]
 
 { #category : #initialization }
-Game2048Elements >> newOpacityAnimationFrom: from to: to [
-
-	^ BlNumberTransition new
-			from: from;
-			to: to;
-			onStepDo: [ :f | super opacity: f ];
-			yourself
-]
-
-{ #category : #initialization }
 Game2048Elements >> newTransformationAnimationFrom: startElementTransformation to: endElementTransformation [
 
 	| cachedTransformation fromMatrix toMatrix |

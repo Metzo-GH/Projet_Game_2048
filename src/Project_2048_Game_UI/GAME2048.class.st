@@ -14,7 +14,7 @@ Class {
 	#category : #'Project_2048_Game_UI'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #opening }
 GAME2048 class >> on: aGame skin: aSkin [
 
 	^ self basicNew
@@ -22,7 +22,7 @@ GAME2048 class >> on: aGame skin: aSkin [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #opening }
 GAME2048 class >> openGame [
 
 	| game gameElement space skin |
@@ -62,14 +62,22 @@ GAME2048 >> addTileValueFor: row and: col [
 		
 		actualValue := (game grid at: row at: col) value.
 		
-		actualValue = 2 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color paleTan] ifFalse: [ 
-			actualValue = 4 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightYellow] ifFalse:[
-				actualValue = 8 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightOrange  ] ifFalse:[ 
-					actualValue = 16 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color orange ] ifFalse:[
-						actualValue = 32 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color paleRed ] ifFalse:[ 
-							actualValue = 64 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightRed darker] ifFalse:[ 
-								actualValue = 128 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightBlue  ] ifFalse:[ 
-									actualValue = 256 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color blue  ] ifFalse:[ 
+		actualValue = 2 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color paleTan;
+			applyTileInsertedSkinOn: tileElement] ifFalse: [ 
+			actualValue = 4 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightYellow;
+			applyTileInsertedSkinOn: tileElement] ifFalse:[
+				actualValue = 8 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightOrange;
+			applyTileInsertedSkinOn: tileElement] ifFalse:[ 
+					actualValue = 16 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color orange;
+			applyTileInsertedSkinOn: tileElement] ifFalse:[
+						actualValue = 32 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color paleRed;
+			applyTileInsertedSkinOn: tileElement] ifFalse:[ 
+							actualValue = 64 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightRed darker;
+			applyTileInsertedSkinOn: tileElement] ifFalse:[ 
+								actualValue = 128 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightBlue;
+			applyTileInsertedSkinOn: tileElement] ifFalse:[ 
+									actualValue = 256 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color blue;
+			applyTileInsertedSkinOn: tileElement] ifFalse:[ 
 		                      skin applyTileSkinOn: tileElement setColor: Color lightGreen darker]]]] ]]]].
 		
 	

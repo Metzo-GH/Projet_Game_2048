@@ -5,6 +5,78 @@ Class {
 }
 
 { #category : #tests }
+Game2048Test >> testCombineDown [
+
+        | game |
+        
+        "Création d'une instance du jeu 2048 avec la grille de test"
+        game := Game2048 new.
+        game gridSize: 4.
+
+			game grid at: 3 at: 1 put: (Tile value: 4).
+			game grid at: 4 at: 1 put: (Tile value: 4).
+			
+        "Effectuer un move"
+       	game moveDown.
+		  
+	self assert: (game grid at: 4 at: 1) value equals: 8.
+]
+
+{ #category : #tests }
+Game2048Test >> testCombineLeft [
+
+        | game |
+        
+        "Création d'une instance du jeu 2048 avec la grille de test"
+        game := Game2048 new.
+        game gridSize: 4.
+
+			game grid at: 1 at: 1 put: (Tile value: 8).
+			game grid at: 1 at: 2 put: (Tile value: 8).
+			
+        "Effectuer un move"
+       	game moveLeft.
+		  
+	self assert: (game grid at: 1 at: 1) value equals: 16.
+]
+
+{ #category : #tests }
+Game2048Test >> testCombineRight [
+
+        | game |
+        
+        "Création d'une instance du jeu 2048 avec la grille de test"
+        game := Game2048 new.
+        game gridSize: 4.
+
+			game grid at: 1 at: 3 put: (Tile value: 32).
+			game grid at: 1 at: 4 put: (Tile value: 32).
+			
+        "Effectuer un move"
+       	game moveRight.
+		  
+	self assert: (game grid at: 1 at: 4) value equals: 64.
+]
+
+{ #category : #tests }
+Game2048Test >> testCombineUp [
+
+        | game |
+        
+        "Création d'une instance du jeu 2048 avec la grille de test"
+        game := Game2048 new.
+        game gridSize: 4.
+
+			game grid at: 1 at: 1 put: (Tile value: 2).
+			game grid at: 2 at: 1 put: (Tile value: 2).
+			
+        "Effectuer un move"
+       	game moveUp.
+		  
+	self assert: (game grid at: 1 at: 1) value equals: 4.
+]
+
+{ #category : #tests }
 Game2048Test >> testMoveDown [
 
         | game flattenedGrid |
@@ -189,4 +261,27 @@ Game2048Test >> testMoveUp [
 			].
 
 self assert: flattenedGrid asArray equals: #(2 2 4 2 4 4 nil 4 2 nil nil 2 nil nil nil nil).
+]
+
+{ #category : #tests }
+Game2048Test >> testScore [
+
+        | game |
+        
+        "Création d'une instance du jeu 2048 avec la grille de test"
+        game := Game2048 new.
+        game gridSize: 4.
+
+			game grid at: 1 at: 3 put: (Tile value: 32).
+			game grid at: 1 at: 4 put: (Tile value: 32).
+			game grid at: 2 at: 3 put: (Tile value: 2).
+			game grid at: 2 at: 4 put: (Tile value: 2).
+			
+        "Effectuer un move"
+       	game moveRight.
+	      game determineScore.
+		  
+	self assert: game score value equals: 64.
+	self assert: (game grid at: 1 at: 4) value equals: 64.
+	self assert: (game grid at: 2 at: 4) value equals: 4.
 ]

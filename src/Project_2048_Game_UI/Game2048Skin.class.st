@@ -35,6 +35,19 @@ Game2048Skin >> applySlotSkinOn: aSlotElement [
 ]
 
 { #category : #applying }
+Game2048Skin >> applyTileInsertedSkinOn: aTileElement [
+	"Assumes the common tile skin is already applied, this behavior is for the tiles that were insterted by a player's slide."
+
+	aTileElement
+		opacity: 0.0;
+		addAnimation:
+			(BlOpacityAnimation new
+				duration: 0.2 seconds;
+				opacity: 1.0;
+				yourself)
+]
+
+{ #category : #applying }
 Game2048Skin >> applyTileSkinOn: aTileElement setColor: aColor [
 
 	aTileElement
