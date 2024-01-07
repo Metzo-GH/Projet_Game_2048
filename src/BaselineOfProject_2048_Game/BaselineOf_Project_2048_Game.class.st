@@ -1,11 +1,11 @@
 Class {
-	#name : #BaselineOfProject2048Game,
+	#name : #'BaselineOf_Project_2048_Game',
 	#superclass : #BaselineOf,
-	#category : #BaselineOfProject2048Game
+	#category : #'BaselineOfProject_2048_Game'
 }
 
 { #category : #baselines }
-BaselineOfProject2048Game >> baseline: spec [
+BaselineOf_Project_2048_Game >> baseline: spec [
     <baseline>
 
     spec for: #common do: [
