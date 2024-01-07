@@ -10,9 +10,8 @@ ProjetGame2048Baseline >> baseline: spec [
 
 	spec for: #common do: [ 
 		spec
-			baseline: #'Projet_Game_2048'
-			with: [ 
-				spec repository: 'github://Metzo-GH/Projet_Game_2048:master/src'.].
+			baseline: #'Bloc'
+			with: [ spec repository: 'github://pharo-graphics/bloc:dev-1.0/src' ].
 		spec
 			package: #'Project_2048_Game';
 			package: #'Project_2048_Game_Test' with: [
