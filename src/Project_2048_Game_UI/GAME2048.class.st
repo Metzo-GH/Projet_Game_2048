@@ -34,14 +34,16 @@ GAME2048 class >> openGame [
 	space := BlSpace new.
 	space root addChild: gameElement.
 	space
-		extent: (game gridSize @ game gridSize ) * 80;
+		extent: 600 @ 600;
+		position: 550 @ 200;
+		resizable: false;
 		show
 ]
 
 { #category : #'as yet unclassified' }
 GAME2048 >> addTileValueFor: row and: col [
 
-	| tileElement  |
+	| tileElement  actualValue|
 	tileElement := GAME2048LabelElement new
 	text: (game grid at: row at: col) value asRopedText;
 	yourself.
@@ -57,13 +59,24 @@ GAME2048 >> addTileValueFor: row and: col [
 	elementByTile
 		at: (col@row)
 		put: tileElement.
-
-	skin applyTileSkinOn: tileElement.
-
+		
+		actualValue := (game grid at: row at: col) value.
+		
+		actualValue = 2 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color paleTan] ifFalse: [ 
+			actualValue = 4 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightYellow] ifFalse:[
+				actualValue = 8 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightOrange  ] ifFalse:[ 
+					actualValue = 16 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color orange ] ifFalse:[
+						actualValue = 32 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color paleRed ] ifFalse:[ 
+							actualValue = 64 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightRed darker] ifFalse:[ 
+								actualValue = 128 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color lightBlue  ] ifFalse:[ 
+									actualValue = 256 ifTrue:[ skin applyTileSkinOn: tileElement setColor: Color blue  ] ifFalse:[ 
+		                      skin applyTileSkinOn: tileElement setColor: Color lightGreen darker]]]] ]]]].
+		
+	
 	^ tileElement
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize game grid' }
 GAME2048 >> createGrid: theGame [
 
 	game := theGame.
@@ -87,7 +100,7 @@ GAME2048 >> createGrid: theGame [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize game grid' }
 GAME2048 >> createGrid: theGame skin: theSkin [
 
 	self

@@ -8,7 +8,7 @@ Class {
 Game2048Skin >> applyGameSkinOn: aGameElement [ 
 
 	aGameElement
-		background: Color lightGray darker;
+		background: Color black;
 		constraintsDo: [ :aLayoutConstraints | 
 			aLayoutConstraints horizontal matchParent.
 			aLayoutConstraints vertical matchParent ].
@@ -22,32 +22,31 @@ Game2048Skin >> applyGameSkinOn: aGameElement [
 		constraintsDo: [ :aLayoutConstraints | 
 			aLayoutConstraints horizontal matchParent.
 			aLayoutConstraints vertical matchParent ]
-
 ]
 
 { #category : #applying }
 Game2048Skin >> applySlotSkinOn: aSlotElement [
 
 	aSlotElement
-		size: 75 asPoint;
+		size: 143 asPoint;
 		margin: (BlInsets all: 3);
-		background: Color paleOrange;
+		background: Color veryLightGray ;
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 3).
 ]
 
 { #category : #applying }
-Game2048Skin >> applyTileSkinOn: aTileElement [
+Game2048Skin >> applyTileSkinOn: aTileElement setColor: aColor [
 
 	aTileElement
 		layout: BlLinearLayout new alignCenter;
-		size: 75 asPoint;
-		background: Color paleYellow;
+		size: 143 asPoint;
+		background: aColor asColor ;
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 3).
 
 	"Animate translations"
 	(aTileElement transitionAt: #transformation)
-		duration: 0.2 seconds;
+		duration: 0.5 seconds;
 		easing: BlQuinticInterpolator default.
 
-	aTileElement label defaultFontSize: 28.
+	aTileElement label defaultFontSize: 50.
 ]
