@@ -11,7 +11,7 @@ Game2048Skin >> applyGameFailedMessageSkinOn: aLabelElement [
 
 	aLabelElement
 		background: Color red translucent;
-		text: 'No good!! Go to train.' asRopedText
+		text: 'Not good!! Go to train.' asRopedText
 ]
 
 { #category : #applying }

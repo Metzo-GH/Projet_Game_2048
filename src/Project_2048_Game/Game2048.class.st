@@ -104,8 +104,8 @@ Game2048 >> ifLose [
 	self moveLeft.
 	self moveRight.
 	
-	oldGrid = grid ifTrue: [ ^ true ]
-						ifFalse: [ ^ false ]
+	oldGrid = grid ifTrue: [ grid:= oldGrid copy. ^ true ]
+						ifFalse: [grid:= oldGrid copy. ^ false ]
 
 ]
 
@@ -113,16 +113,21 @@ Game2048 >> ifLose [
 Game2048 >> ifWin [ 
     "Vérifie si une tuile avec la valeur 2048 est présente dans grid"
 
+	| oldGrid |
+    oldGrid := grid copy.
+
     gridSize to: 1 by: -1 do: [ :r |
         gridSize to: 1 by: -1 do: [ :c |
             | currentTile |
             currentTile := grid at: r at: c.
             currentTile ifNotNil: [
-                (currentTile value = 2048) ifTrue: [ ^true ].
+                (currentTile value = 2048) ifTrue: [grid:= oldGrid copy. ^true ].
             ].
         ].
     ].
-
+	
+	grid:= oldGrid copy.
+	
     ^false.
 
 ]
