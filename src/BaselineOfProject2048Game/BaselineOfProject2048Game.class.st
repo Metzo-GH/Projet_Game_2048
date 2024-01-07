@@ -9,7 +9,7 @@ BaselineOfProject2048Game >> baseline: spec [
     <baseline>
 
     spec for: #common do: [
-        spec repository: 'github.com/Metzo-GH/Projet_Game_2048:master/src'.
+        spec repository: 'https://github.com/Metzo-GH/Projet_Game_2048/tree/master/src'.
 
         spec
             package: 'Project_2048_Game';
