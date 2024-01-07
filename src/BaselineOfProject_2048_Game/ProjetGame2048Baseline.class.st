@@ -11,14 +11,14 @@ ProjetGame2048Baseline >> baseline: spec [
 	spec for: #common do: [ 
 		spec
 			baseline: #'Projet_Game_2048'
-			with: [ spec repository: 'github://Metzo-GH/Projet_Game_2048:master/src' ].
+			with: [ 
+				spec repository: 'github://Metzo-GH/Projet_Game_2048:master/src'.].
 		spec
 			package: #'Project_2048_Game';
 			package: #'Project_2048_Game_Test' with: [
-				spec requires: #( #'Project_2048_Game' ) ];
+				spec requires: #( #'Project_2048_Game' ).];
 			package: #'Project_2048_Game_UI' with: [
-				spec requires: #( #'Project_2048_Game' ) ]
-			]
-		
+				spec requires: #( #'Project_2048_Game' ).].
+	]
 
 ]
