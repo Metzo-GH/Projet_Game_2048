@@ -17,30 +17,6 @@ Game2048Elements >> initialize [
 ]
 
 { #category : #initialization }
-Game2048Elements >> newTransformationAnimationFrom: startElementTransformation to: endElementTransformation [
-
-	| cachedTransformation fromMatrix toMatrix |
-	cachedTransformation :=
-		endElementTransformation asCachedTransformation.
-	cachedTransformation boundingRectangle:
-		self bounds inLocal asRectangle.
-
-	fromMatrix := startElementTransformation matrix copy.
-	toMatrix := cachedTransformation matrix.
-
-"	toMatrix = fromMatrix ifTrue: [ 'same matrix!' traceCr ]."
-
-	^ BlNumberTransition new
-			from: 0.0;
-			to: 1.0;
-			onStepDo: [ :f |
-				super transformation:
-					(BlElementAbsoluteTransformation matrix:
-						(fromMatrix interpolate: f to: toMatrix)) ];
-			yourself
-]
-
-{ #category : #initialization }
 Game2048Elements >> opacity: aNumber [
 
 	| aTransition anAnimation |
@@ -70,7 +46,7 @@ Game2048Elements >> opacity: aNumber [
 Game2048Elements >> transformation: anElementTransformation [
 
 	| aTransition |
-
+	
 	aTransition := transitionByName
 		at: #transformation
 		ifAbsent: [ ^ super transformation: anElementTransformation ].
@@ -98,17 +74,4 @@ Game2048Elements >> transitionAt: aName [
 	^ transitionByName
 			at: aName
 			ifAbsentPut: [ Game2048ElementTransition new ]
-]
-
-{ #category : #initialization }
-Game2048Elements >> transitionAt: aName duration: aDuration [
-
-	(self transitionAt: aName) duration: aDuration
-
-]
-
-{ #category : #initialization }
-Game2048Elements >> transitionAt: aName easing: aBlInterpolator [
-
-	(self transitionAt: aName) easing: aBlInterpolator
 ]

@@ -55,10 +55,7 @@ GAME2048 >> addTileValueFor: row and: col [
 		at: col
 		at: row ) position)
 		 ].
-
-	elementByTile
-		at: (col@row)
-		put: tileElement.
+	
 		
 		actualValue := (game grid at: row at: col) value.
 		
@@ -106,6 +103,7 @@ GAME2048 >> createGrid: theGame [
         ]
     ].
 	
+		self refreshScoreInTitle.
 ]
 
 { #category : #'initialize game grid' }
@@ -121,8 +119,6 @@ GAME2048 >> createGrid: theGame skin: theSkin [
 GAME2048 >> initialize [
 
 	super initialize.
-
-	elementByTile := Dictionary new.
 
 	"The tile container is an overlay on top of the slots."
 	slotsContainer := Game2048Elements new.
@@ -166,7 +162,7 @@ GAME2048 >> refreshAfterMovedTile [
 	
 	1 to: game gridSize by: 1 do: [ :row |
 		1 to: game gridSize by: 1 do: [ :col |
-			(game grid at: row at: col) ifNotNil:[ 
+			(game grid at: row at: col) ifNotNil:[	 
 			self addTileValueFor: row and: col]
         ]
     ].
