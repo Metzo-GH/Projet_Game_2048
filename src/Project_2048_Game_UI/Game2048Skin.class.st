@@ -61,7 +61,7 @@ Game2048Skin >> applyGameSuccessMessageSkinOn: aLabelElement [
 
 	aLabelElement
 		background: Color green translucent;
-		text: 'Success' asRopedText
+		text: 'Easy? Go for another game!' asRopedText
 ]
 
 { #category : #applying }

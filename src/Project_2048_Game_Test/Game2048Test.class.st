@@ -73,7 +73,7 @@ Game2048Test >> testCombineUp [
         "Effectuer un move"
        	game moveUp.
 		  
-	self assert: (game grid at: 1 at: 1) value equals: 4.
+		self assert: (game grid at: 1 at: 1) value equals: 4.
 ]
 
 { #category : #tests }
@@ -284,4 +284,43 @@ Game2048Test >> testScore [
 	self assert: game score value equals: 64.
 	self assert: (game grid at: 1 at: 4) value equals: 64.
 	self assert: (game grid at: 2 at: 4) value equals: 4.
+]
+
+{ #category : #tests }
+Game2048Test >> testifLose [
+
+    | game tileValues rowIndex colIndex |
+    
+    game := Game2048 new.
+    game gridSize: 4.
+
+    tileValues := #(4 8 4 8 8 4 8 4 4 8 4 8 8 4 8 4).
+    rowIndex := 1.
+    colIndex := 1.
+
+    tileValues do: [:value |
+        game grid at: rowIndex at: colIndex put: (Tile value: value).
+        colIndex := colIndex + 1.
+        rowIndex := colIndex > game gridSize
+            ifTrue: [colIndex := 1. rowIndex + 1]
+            ifFalse: [rowIndex].
+    ].
+
+    self assert: (game ifLose).
+
+]
+
+{ #category : #tests }
+Game2048Test >> testifWin [
+    | game |
+    
+    game := Game2048 new.
+    game gridSize: 4.
+
+    "Placer une tuile de 2048 dans la grille"
+    game grid at: 1 at: 1 put: (Tile value: 2048).
+
+    "Vérifier si le joueur a gagné après l'insertion de la tuile 2048"
+    self assert: (game ifWin).
+
 ]

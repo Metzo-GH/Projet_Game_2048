@@ -40,7 +40,7 @@ GAME2048 class >> openGame [
 		show
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize game grid' }
 GAME2048 >> addTileValueFor: row and: col [
 
 	| tileElement  actualValue|
@@ -115,7 +115,7 @@ GAME2048 >> createGrid: theGame skin: theSkin [
 		createGrid: theGame
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize game grid' }
 GAME2048 >> initialize [
 
 	super initialize.
@@ -136,7 +136,7 @@ GAME2048 >> initialize [
 				 self registerKeyBindings ])
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize game grid' }
 GAME2048 >> initializeWithSkin: aSkin [
 
 	skin := aSkin.
@@ -246,13 +246,13 @@ GAME2048 >> slideIfEnabled: slideSelector andDisableDuring: aDuration [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize game grid' }
 GAME2048 >> slotsContainer [
 
 	^ slotsContainer
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize game grid' }
 GAME2048 >> tilesContainer [
 
 	^ tilesContainer
