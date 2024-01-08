@@ -26,7 +26,16 @@ Lancer le script suivant pour installer Bloc :
 		do: [ :warning | warning load ]
 ```
 ### Installation du jeux
-#### Il faudra cloner ce repertoire dans pharo avec les informations suivantes :
+#### Il faut lancer ce script dans le playground:
+
+```smalltalk
+Metacello new
+    baseline: 'Projet_Game_2048';
+    repository: 'github://Metzo-GH/Projet_Game_2048:master/src';
+    load
+```
+
+#### Ou bien il faudra cloner ce repertoire dans pharo avec les informations suivantes :
 Owner Name: Metzo-GH
 
 Project Name: Projet_Game_2048
