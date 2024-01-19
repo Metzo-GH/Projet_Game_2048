@@ -20,13 +20,13 @@ Tile >> setValue: aValue [
 ]
 
 { #category : #accessing }
-Tile >> value [ 
+Tile >> value [
 
 	^ value
 ]
 
 { #category : #accessing }
-Tile >> value: aValue [ 
+Tile >> value: aValue [
 
 	^ self setValue: aValue
 ]
