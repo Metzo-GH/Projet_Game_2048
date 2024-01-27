@@ -32,10 +32,8 @@ Game2048ElementTransition >> duration [
 { #category : #accessing }
 Game2048ElementTransition >> duration: aDuration [
 
-	aDuration isZero ifTrue: [
-		self notYetImplemented ].
-	self isRunning ifTrue: [
-		self notYetImplemented ].
+	aDuration isZero ifTrue: [ self notYetImplemented ].
+	self isRunning ifTrue: [ self notYetImplemented ].
 
 	duration := aDuration
 ]
@@ -58,13 +56,13 @@ Game2048ElementTransition >> easing: aBlInterpolator [
 Game2048ElementTransition >> initialize [
 
 	super initialize.
-	
+
 	duration := 0 seconds.
 	easing := BlLinearInterpolator default
 ]
 
 { #category : #accessing }
 Game2048ElementTransition >> isRunning [
-	
+
 	^ animation isNotNil and: [ animation isRunning ]
 ]

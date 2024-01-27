@@ -25,6 +25,6 @@ GAME2048LabelElement >> label [
 
 { #category : #initialization }
 GAME2048LabelElement >> text: aBlRopedText [
-	
+
 	label text: aBlRopedText
 ]
